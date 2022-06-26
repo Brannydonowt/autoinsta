@@ -30,13 +30,28 @@ examplepassword123
 ```
 path should look like: *autoinsta/profiles/instagram.pass*
 
-*.pass files are in the .gitignore, so will not be picked up when commiting, you can also remove the requirement for this file by manually entering your login details in the instagram.py*
-*to do this, go to instagram.py. Delete line 107 and enter your details in the place of usr and pwd on line 109*
+*.pass files are in the .gitignore, so will not be picked up when commiting, you can also remove the requirement for this file by manually entering your login details in the instagram.py.*
+*To do this, go to instagram.py. Delete line 107 and enter your details in the place of usr and pwd on line 109*
 
 You can now compile run bot.py to upload a single trending tiktok video to your instagram page.
 
 You can also adjust and run scheduler.py to schedule posts every x minutes or at certain times throughout the day.
 [Follow this link for more information on how to do that](https://pypi.org/project/schedule/)
+
+## Development Plan
+##### This is a hobby project, and so further development is not guaranteed, however below are some of the features I'd like to add.
+
+- Post Likes
+Automatically find posts of a certain type/hashtag and like x number of them
+- Page Following
+Automatically find relevant pages and follow x number of them
+- Post Reels/Story's
+- Video Editing
+Automatically edit videos to include watermarks, corrected aspect ratios, captions.
+- Commenting
+Comment on relevant posts with reasonable messages (potentially using OpenAI to generate natural comments)
+
+
 
 
 
