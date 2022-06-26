@@ -42,14 +42,14 @@ You can also adjust and run scheduler.py to schedule posts every x minutes or at
 ##### This is a hobby project, and so further development is not guaranteed, however below are some of the features I'd like to add.
 
 - Post Likes
-Automatically find posts of a certain type/hashtag and like x number of them
+    - Automatically find posts of a certain type/hashtag and like x number of them
 - Page Following
-Automatically find relevant pages and follow x number of them
+    - Automatically find relevant pages and follow x number of them
 - Post Reels/Story's
 - Video Editing
-Automatically edit videos to include watermarks, corrected aspect ratios, captions.
+    - Automatically edit videos to include watermarks, corrected aspect ratios, captions.
 - Commenting
-Comment on relevant posts with reasonable messages (potentially using OpenAI to generate natural comments)
+    - Comment on relevant posts with reasonable messages (potentially using OpenAI to generate natural comments)
 
 
 
