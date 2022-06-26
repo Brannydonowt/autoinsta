@@ -10,15 +10,14 @@ from time import sleep
 # TikTok Section
 class TikTokVideoGet:
     def __init__(self):
-        fp = "verify_f59ff756e4e331c2b798fb7b4928c6de"
-        self.api = TikTokApi(logging_level=logging.INFO)
+        self.api = TikTokApi()
         self.cookies = self.get_cookies_from_file()
 
         self.api._get_cookies = self.get_cookies
         print("initialized tiktok video helper")
 
     def get_cookies_from_file(self):
-        with open('profiles/ultimatefoodmemes/tiktok/cookies.json') as f:
+        with open('cookies/cookies.json') as f:
             self.cookies = json.load(f)
 
         cookies_kv = {}
