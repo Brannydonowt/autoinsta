@@ -11,7 +11,7 @@ For an example of an instagram account that uses the bot, check out [@trendmeist
 Clone the repo and install the required pip packages (requirements.txt file included)
 
 ```
-git clone <https://github.com/Brannydonowt/autoinsta.git>
+git clone https://github.com/Brannydonowt/autoinsta.git
 cd <repo>
 pip install virtualenv (if you don't already have virtualenv installed)
 virtualenv venv to create your new environment (called 'venv' here)
