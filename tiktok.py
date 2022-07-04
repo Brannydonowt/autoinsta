@@ -1,5 +1,4 @@
 from TikTokApi import TikTokApi
-import logging
 
 import json
 

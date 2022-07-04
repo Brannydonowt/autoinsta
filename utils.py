@@ -1,4 +1,3 @@
-
 def get_account_details():
     f = open('profiles/instagram.pass')
     details = f.readlines()

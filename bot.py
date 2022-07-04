@@ -1,6 +1,3 @@
-from cProfile import run
-from codecs import escape_encode
-from msilib.schema import File
 from selenium import webdriver
 
 from time import sleep

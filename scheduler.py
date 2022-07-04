@@ -1,4 +1,3 @@
-from turtle import pos
 import schedule
 import time
 
