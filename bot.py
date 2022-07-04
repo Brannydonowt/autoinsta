@@ -1,9 +1,8 @@
-from selenium import webdriver
-
 from time import sleep
 
 import instagram
 import tiktok
+import driver
 
 def Main():
     tik_tok, video_path = tiktok.get_tiktok_video()
@@ -12,14 +11,14 @@ def Main():
         Main()
         return False
 
-    browser = webdriver.Firefox()
-    browser.implicitly_wait(5)
+    browser = driver.GetBrowser(headless=True)
 
     sleep(3)
 
     if instagram.navigate_to_homepage(browser):
         if instagram.upload_video(browser, video_path):
             if instagram.finalise_upload(browser, tik_tok):
+                print("**** Video Uploaded Succesfully ****")
                 browser.close()
                 return True
     
