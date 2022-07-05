@@ -148,7 +148,7 @@ def finalise_upload(browser, tik_tok):
                     utils.clean_log("UPLOAD 4/4, Complete")
                     upload_complete = False
                     while not upload_complete:
-                        utils("UPLOADING...")
+                        utils.clean_log("UPLOADING...")
                         sleep(30)
                         upload_complete = upload_page.verify_upload()
                     utils.clean_log("UPLOAD COMPLETE")
