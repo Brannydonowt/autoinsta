@@ -52,6 +52,7 @@ This can be done using a browser extension [like this one.](https://add0n.com/co
 ## Current Active Tasks
 - [X] Remove AutoIt dependancy
 - [ ] Docker Compatability
+    - [ ] Fix Playwright Debian Support/Workaround
 - [ ] Continuous uploads
 
 ## Development Plan
