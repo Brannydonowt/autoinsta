@@ -106,10 +106,14 @@ def navigate_to_homepage(browser):
     login_page = LoginPage(home_page.browser)
     usr, pwd = utils.get_account_details()
     if home_page.accept_cookies():
+        utils.clean_log("STEP - Accept Cookies, complete")
         if login_page.login(usr, pwd):
+            utils.clean_log("STEP - Login, Complete")
             landing_page = LandingPage(login_page.browser)
             if landing_page.save_login_information():
+                utils.clean_log("STEP - Save Login Information, complete")
                 if landing_page.turn_on_notifications():
+                    utils.clean_log("STEP - Notification Settings, complete")
                     return True
     
     print("Failed to navigate to home page.")
@@ -119,8 +123,11 @@ def upload_video(browser, video_path):
 
     landing_page = LandingPage(browser)
     if landing_page.upload_page():
+        utils.clean_log("STEP - Upload Page, complete")
         if landing_page.upload_from_computer():
+            utils.clean_log("STEP - Select Upload, complete")
             if landing_page.select_upload_file(video_path):
+                utils.clean_log("STEP - Upload File, complete")
                 return True
     
     return False
@@ -132,13 +139,19 @@ def finalise_upload(browser, tik_tok):
     
     upload_page = UploadPage(browser)
     if upload_page.nextpage():
+        utils.clean_log("UPLOAD 1/4, Complete")
         if upload_page.nextpage():
+            utils.clean_log("UPLOAD 2/4, Complete")
             if upload_page.write_caption(tik_tok.desc + "\nCredit: " + tik_tok.video_author + "\n\n\n\n " + tik_tok.hashtag_string + "\n" + my_hashtags):
+                utils.clean_log("UPLOAD 3/4, Complete")
                 if upload_page.nextpage():
+                    utils.clean_log("UPLOAD 4/4, Complete")
                     upload_complete = False
                     while not upload_complete:
+                        utils("UPLOADING...")
                         sleep(30)
                         upload_complete = upload_page.verify_upload()
+                    utils.clean_log("UPLOAD COMPLETE")
                     return True
     
     return False
