@@ -133,3 +133,5 @@ dmypy.json
 .pyre/
 profiles/ultimatefoodmemes
 videos/tikTokTrending.mp4
+autoinsta/profiles
+autoinsta/videos

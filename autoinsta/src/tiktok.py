@@ -16,7 +16,7 @@ class TikTokVideoGet:
         print("initialized tiktok video helper")
 
     def get_cookies_from_file(self):
-        with open('cookies/cookies.json') as f:
+        with open('autoinsta/cookies/cookies.json') as f:
             self.cookies = json.load(f)
 
         cookies_kv = {}
@@ -27,16 +27,14 @@ class TikTokVideoGet:
 
     def get_cookies(self, **kwargs):
         return self.cookies
-    
+        
     def get_hashtag_video(self, hashtag):
         desiredVideo = randint(0, 10)
         step = 0
         
         h = self.api.hashtag(name=hashtag)
-        print("Made it")
 
         videos = h.videos(count=10)
-        print("Made it to videos")
 
         for v in videos:
             step += 1
@@ -45,7 +43,7 @@ class TikTokVideoGet:
                 video_id = v.id
                 self.download_video_by_id(video_id)
 
-                return "videos/tikTokTrending.mp4"
+                return "autoinsta/videos/tikTokTrending.mp4"
 
     def get_trending_video(self):
         try: 
@@ -82,7 +80,7 @@ class TikTokVideoGet:
 
                     self.download_video_by_id(video_id)
                 
-                    return "videos/tikTokTrending.mp4"
+                    return "autoinsta/videos/tikTokTrending.mp4"
             return False
         except:
             print ("Failed to pull from TikTok...")
@@ -94,7 +92,7 @@ class TikTokVideoGet:
             video_bytes = api.video(id=video_id).bytes()
 
         # Saving The Video
-        with open('videos/tikTokTrending.mp4', 'wb') as output:
+        with open('autoinsta/videos/tikTokTrending.mp4', 'wb') as output:
             output.write(video_bytes)
 
         sleep(10)

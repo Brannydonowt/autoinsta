@@ -19,6 +19,11 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+TikTokApi uses the Playwright library. Therefore with a fresh install, you need to ensure that you run
+```
+playwright install
+```
+
 Make sure you have a valid web driver installed and placed into your PATH for Selenium.
 [Follow this link for more information on how to do that](https://pypi.org/project/selenium/)
 
@@ -43,6 +48,11 @@ You can also adjust and run scheduler.py to schedule posts every x minutes or at
 [There are some issues that can occur related to the TikTokAPI](https://github.com/davidteather/TikTok-Api/issues/891). Most of these issues can be circumvented by logging into tik tok manually, scrolling through for a short time and then saving all of your cookies to a json file (at cookies/cookies.json)
 
 This can be done using a browser extension [like this one.](https://add0n.com/cookie-editor.html)
+
+## Current Active Tasks
+- [ ] Remove AutoIt dependancy
+- [ ] Docker Compatability
+- [ ] Continuous uploads
 
 ## Development Plan
 ##### This is a hobby project, and so further development is not guaranteed, however below are some of the features I'd like to add.

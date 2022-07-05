@@ -2,3 +2,4 @@ selenium
 instapy
 TikTokApi
 schedule
+PyAutoIt
