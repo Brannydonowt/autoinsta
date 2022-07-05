@@ -50,7 +50,7 @@ You can also adjust and run scheduler.py to schedule posts every x minutes or at
 This can be done using a browser extension [like this one.](https://add0n.com/cookie-editor.html)
 
 ## Current Active Tasks
-- [ ] Remove AutoIt dependancy
+- [X] Remove AutoIt dependancy
 - [ ] Docker Compatability
 - [ ] Continuous uploads
 
