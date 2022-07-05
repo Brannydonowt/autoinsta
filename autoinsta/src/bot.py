@@ -11,7 +11,7 @@ def Main():
         Main()
         return False
 
-    browser = driver.GetBrowser(headless=True)
+    browser = driver.GetBrowser(headless=False)
 
     sleep(3)
 

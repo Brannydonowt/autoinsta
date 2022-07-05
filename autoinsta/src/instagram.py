@@ -3,7 +3,6 @@ from tkinter import BROWSE
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
-import autoit
 import utils
 
 def try_find_element(browser, bySelector, path):
@@ -38,7 +37,20 @@ class LandingPage:
     def upload_from_computer(self):
         return try_click_element(self.browser, By.CSS_SELECTOR, '._ab9x > button:nth-child(1)')
 
+    def upload_from_computer_cp(self, video_path): 
+        utils.clean_log("Trying to send keys")
+        result, element = try_find_element(self.browser, By.CSS_SELECTOR, "._ac2t > form:nth-child(2) > input:nth-child(1)")
+        if result == True:
+            element.send_keys(os.path.abspath(video_path))
+            sleep(3)
+            element.click()
+        
+        return result
+
     def select_upload_file(self, video_path):
+        sleep(3)
+        return True
+
         sleep(3)
 
         autoit.control_send("File Upload","Edit1", os.path.abspath(video_path))
@@ -56,7 +68,6 @@ class UploadPage:
 
     def nextpage(self):
         return try_click_element(self.browser, By.CSS_SELECTOR, "._abaa > button:nth-child(1)")
-
 
     def write_caption(self, caption):
         result, target = try_find_element(self.browser, By.CSS_SELECTOR, "textarea._ablz:nth-child(1)")
@@ -124,7 +135,7 @@ def upload_video(browser, video_path):
     landing_page = LandingPage(browser)
     if landing_page.upload_page():
         utils.clean_log("STEP - Upload Page, complete")
-        if landing_page.upload_from_computer():
+        if landing_page.upload_from_computer_cp(video_path):
             utils.clean_log("STEP - Select Upload, complete")
             if landing_page.select_upload_file(video_path):
                 utils.clean_log("STEP - Upload File, complete")
