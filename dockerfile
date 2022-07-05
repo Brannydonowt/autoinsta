@@ -25,6 +25,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-RUN playwright install
+RUN playwright install --with-deps
 
 CMD exec python autoinsta/src/bot.py
