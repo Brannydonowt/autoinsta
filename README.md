@@ -18,6 +18,8 @@ I have dockerized the project so that you can simply create a deployable docker 
 ```
 docker build -t autoinsta .
 ```
+You **MUST** be running in headless mode for Docker to run succesfully.
+
 I'm new to using Docker, so if there are any problems please raise an issue and I'll jump on it!
 
 ### Running Locally
