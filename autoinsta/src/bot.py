@@ -3,6 +3,7 @@ from time import sleep
 import instagram
 import tiktok
 import driver
+import video
 
 def Main():
     tik_tok, video_path = tiktok.get_tiktok_video()
@@ -11,7 +12,7 @@ def Main():
         Main()
         return False
 
-    browser = driver.GetBrowser(headless=True)
+    browser = driver.GetBrowser(headless=False)
 
     sleep(3)
 
@@ -24,4 +25,12 @@ def Main():
     
     browser.close()
 
-Main()
+def Test_VideoEdit():
+    tik_tok, video_path = tiktok.get_tiktok_video()
+    if video_path == False:
+        print("No video path was returned")
+        #return False
+
+    video.add_video_pad('autoinsta/videos/tikTokTrending.mp4', 100, 100)
+
+Test_VideoEdit()

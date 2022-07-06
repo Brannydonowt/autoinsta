@@ -3,3 +3,4 @@ instapy
 TikTokApi==5.1.1
 schedule
 webdriver-manager
+ffmpeg-python
