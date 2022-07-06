@@ -51,8 +51,9 @@ This can be done using a browser extension [like this one.](https://add0n.com/co
 
 ## Current Active Tasks
 - [X] Remove AutoIt dependancy
-- [ ] Docker Compatability
-    - [ ] Fix Playwright Debian Support/Workaround
+- [X] Docker Compatability
+    - [X] Fix Playwright Debian Support/Workaround
+    - [ ] Fix Various Docker Compatability Problems
 - [ ] Continuous uploads
 
 ## Development Plan
