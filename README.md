@@ -13,7 +13,6 @@ Clone the repo
 ```
 git clone https://github.com/Brannydonowt/autoinsta.git
 ```
-
 ### Running Via Docker
 I have dockerized the project so that you can simply create a deployable docker image to run.
 ```
@@ -31,6 +30,7 @@ pip install -r requirements.txt
 ```
 
 TikTokApi uses the Playwright library. Therefore with a fresh install, you need to ensure that you run
+*(due to this, you may have some problems running this bot on linux. I recommend using Docker if running locally doesn't work for you.)*
 ```
 playwright install
 ```
@@ -64,7 +64,7 @@ This can be done using a browser extension [like this one.](https://add0n.com/co
 - [X] Remove AutoIt dependancy
 - [X] Docker Compatability
     - [X] Fix Playwright Debian Support/Workaround
-    - [ ] Fix Various Docker Compatability Problems
+    - [X] Fix Various Docker Compatability Problems
 - [ ] Continuous uploads
 
 ## Development Plan
