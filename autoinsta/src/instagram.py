@@ -1,5 +1,4 @@
 from time import sleep
-from tkinter import BROWSE
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os

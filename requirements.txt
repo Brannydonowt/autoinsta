@@ -1,4 +1,4 @@
 selenium
 instapy
-TikTokApi
+TikTokApi==5.1.1
 schedule

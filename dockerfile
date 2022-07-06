@@ -1,8 +1,6 @@
-FROM python:3.9
+FROM mcr.microsoft.com/playwright:focal
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV GECKODRIVER_VER v0.29.0
-ENV FIREFOX_VER 87.0
+RUN apt-get update && apt-get install -y python3-pip
 
 WORKDIR /
 
@@ -11,11 +9,7 @@ COPY autoinsta/src /autoinsta/src/
 COPY autoinsta/cookies /autoinsta/cookies
 COPY autoinsta/profiles /autoinsta/profiles
 
-# COPY driver.py /app/src
-# COPY instagram.py /app/src/
-# COPY scheduler.py /app/src/
-# COPY tiktok.py /app/src/
-# COPY utils.py /app/src/
+RUN apt install python3.8-venv
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
@@ -23,8 +17,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install dependencies:
 COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-RUN playwright install --with-deps
+RUN pip3 install -r requirements.txt
+RUN python3 -m playwright install
 
 CMD exec python autoinsta/src/bot.py
