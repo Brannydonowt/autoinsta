@@ -8,13 +8,24 @@ I am currently also using the TikTokAPI for video retrieval.
 For an example of an instagram account that uses the bot, check out [@trendmeisters](https://www.instagram.com/trendmeisters/?hl=en)
 
 ## Getting Started
-Clone the repo and install the required pip packages (requirements.txt file included)
 
+Clone the repo
 ```
 git clone https://github.com/Brannydonowt/autoinsta.git
-cd <repo>
+```
+
+### Running Via Docker
+I have dockerized the project so that you can simply create a deployable docker image to run.
+```
+docker build -t autoinsta .
+```
+I'm new to using Docker, so if there are any problems please raise an issue and I'll jump on it!
+
+### Running Locally
+install the required pip packages (requirements.txt file included)
+```
 pip install virtualenv (if you don't already have virtualenv installed)
-virtualenv venv to create your new environment (called 'venv' here)
+virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
