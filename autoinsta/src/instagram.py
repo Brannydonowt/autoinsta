@@ -108,7 +108,7 @@ class HomePage:
         self.browser.get('https://www.instagram.com/')
 
     def accept_cookies(self):
-        return try_click_element(self.browser, By.CLASS_NAME, 'HoLwm')
+        return try_click_element(self.browser, By.CSS_SELECTOR, 'button.aOOlW:nth-child(2)')
 
     def go_to_login_page(self):
         sleep(2)
