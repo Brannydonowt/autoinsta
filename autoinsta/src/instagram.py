@@ -38,11 +38,14 @@ class LandingPage:
 
     def upload_from_computer_cp(self, video_path): 
         utils.clean_log("Trying to send keys")
-        result, element = try_find_element(self.browser, By.CSS_SELECTOR, "._ac2t > form:nth-child(2) > input:nth-child(1)")
+        # This is still temperamental, sometimes visibile - sometimes not.
+        # xpath is - "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div/div/div/div/div[2]/div[1]/form/input"
+        # css selector is - ._ac2t > form:nth-child(2) > input:nth-child(1)
+        # css path is - html._9dls.js-focus-visible._aa4c body._a3wf.system-fonts--body.segoe div#mount_0_0_TM div div div.rq0escxv.l9j0dhe7.du4w35lb div div div.hwddc3l5 div.rq0escxv.l9j0dhe7.du4w35lb div.j83agx80.cbu4d94t.h3gjbzrl.l9j0dhe7.dza99gun div.iqfcb0g7.tojvnm2t.a6sixzi8.k5wvi7nf.q3lfd5jv.pk4s997a.bipmatt0.cebpdrjk.qowsmv63.owwhemhu.dp1hu0rb.dhp61c6y.l9j0dhe7.iyyx5f41.a8s20v7p div.gs1a9yip.rq0escxv.j83agx80.cbu4d94t.buofh1pr.taijpn5t div.ll8tlv6m.rq0escxv.j83agx80.taijpn5t.tgvbjcpo.hpfvmrgz.hzruof5a div.du4w35lb.cjfnh4rs.lzcic4wl.ni8dbmo4.stjgntxs.oqq733wu.futnfnd5.mudwbb97.fg7vo5n6.q0p5rdf8.li38xygf div.ryzhgsaw.q0p5rdf8.nxkddm9p.d6zs4f6z.dopw56fx.lcf4bpt0.kbli7zfr.fg7vo5n6.mpyj2j6a.d2uofw50.h1gfnr7q.mgim66vq div.qg4pu3sx.flebnqrf.kzt5xp73.h98he7qt.e793r6ar.pi61vmqs.od1n8kyl.h6an9nv3.j4yusqav div._a3gq._ab-1 div div._ab8w._ab94._ab99._ab9f._ab9m._ab9o._ab9s div._ac2r div._ac2t form input._ac69
+        result, element = try_find_element(self.browser, By.XPATH, "._ac2t > form:nth-child(2) > input:nth-child(1)")
         if result == True:
             element.send_keys(os.path.abspath(video_path))
             sleep(3)
-            element.click()
         
         return result
 
