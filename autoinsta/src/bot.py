@@ -4,13 +4,20 @@ import instagram
 import tiktok
 import driver
 import video
+import utils
 
 def Main():
+    VIDEO_EDIT = True
+
     tik_tok, video_path = tiktok.get_tiktok_video()
     if video_path == False:
         print("No video path was returned")
         Main()
         return False
+
+    if VIDEO_EDIT:
+        utils.clean_log("Padding Video Content")
+        video_path = video.add_video_pad(video_path, 100, 100)
 
     browser = driver.GetBrowser(headless=False)
 
@@ -33,4 +40,4 @@ def Test_VideoEdit():
 
     video.add_video_pad('autoinsta/videos/tikTokTrending.mp4', 100, 100)
 
-Test_VideoEdit()
+Main()
