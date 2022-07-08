@@ -7,6 +7,12 @@ I am currently also using the TikTokAPI for video retrieval.
 
 For an example of an instagram account that uses the bot, check out [@trendmeisters](https://www.instagram.com/trendmeisters/?hl=en)
 
+## Recently Added
+- [X] ffmpeg auto-padded videos
+    *Automatically pads any TikTok content to fit the 4:3 Instagram Aspect Ratio* 
+- [X] Docker Support
+    *Added a basic Dockerfile that runs the bot via docker*
+
 ## Getting Started
 
 Clone the repo
@@ -61,13 +67,6 @@ You can also adjust and run scheduler.py to schedule posts every x minutes or at
 [There are some issues that can occur related to the TikTokAPI](https://github.com/davidteather/TikTok-Api/issues/891). Most of these issues can be circumvented by logging into tik tok manually, scrolling through for a short time and then saving all of your cookies to a json file (at cookies/cookies.json)
 
 This can be done using a browser extension [like this one.](https://add0n.com/cookie-editor.html)
-
-## Current Active Tasks
-- [X] Remove AutoIt dependancy
-- [X] Docker Compatability
-    - [X] Fix Playwright Debian Support/Workaround
-    - [X] Fix Various Docker Compatability Problems
-- [ ] Continuous uploads
 
 ## Development Plan
 ##### This is a hobby project, and so further development is not guaranteed, however below are some of the features I'd like to add.
