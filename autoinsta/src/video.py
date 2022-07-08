@@ -31,7 +31,7 @@ def get_optimal_padding(w, h):
     return pad_w, pad_h
 
 def add_video_pad(video_path, padding_x, padding_y):
-    print("Processing Video at path: ", video_path)
+    utils.clean_log(f"Processing Video at path: {video_path}")
     w, h = get_video_resolution(video_path)
     pw, ph = get_optimal_padding(w, h)
 
@@ -41,5 +41,3 @@ def add_video_pad(video_path, padding_x, padding_y):
     #pad=w=iw+{ph}:h=ih:x={pw}:y=0:color=white
     output.run(overwrite_output=True)
     return 'autoinsta/videos/final.mp4'
-
-init()
