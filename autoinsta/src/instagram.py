@@ -115,6 +115,33 @@ class HomePage:
         sleep(2)
         return LoginPage(self.browser)
 
+class ExplorePage:
+    def __init__(self, browser, hashtag):
+        self.browser = browser
+        self.browser.get('https://www.instagram.com/explore/tags/' + hashtag)
+
+class Post:
+    def __init__(self, browser, id):
+        self.browser = browser
+        self.id = id
+        utils.clean_log("Loading Post: " + id)
+        self.browser.get('https://www.instagram.com/p/' + id + '/')
+
+    def like_post(self):
+        utils.clean_log("Liking current post")
+        return try_click_element(self.browser, By.CSS_SELECTOR, '._aamw > button:nth-child(1)')
+
+    def comment_post(self, comment):
+        utils.clean_log("Commenting on post")
+        result, element = try_find_element(self.browser, By.CSS_SELECTOR, '._ablz')
+        if not result:
+            utils.error_log("Failed to find comment element")
+            return False
+        
+        element.send_keys(comment)
+        sleep(3)
+        return try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(3)')
+
 def navigate_to_homepage(browser):
     home_page = HomePage(browser)
     login_page = LoginPage(home_page.browser)
@@ -132,6 +159,34 @@ def navigate_to_homepage(browser):
     
     print("Failed to navigate to home page.")
     return False
+
+def load_post(browser, post_id):
+    post = Post(browser, post_id)
+    utils.clean_log("Loaded Post")
+    return post
+
+def like_post(post, post_id):
+    try:
+        utils.clean_log("Trying to like post")
+        post.like_post()
+    except:
+        utils.error_log("Failed to like loaded post.")
+        return False
+    
+    utils.clean_log("Liked post succesfully")
+    return True
+
+def comment_post(post, post_id, comment):
+    try:
+        utils.clean_log("Trying to comment on post")
+        post.comment_post(comment)
+    except:
+        utils.error_log("Failed to comment on the loaded post")
+
+    utils.clean_log("commented on post succesfully")
+    return True
+
+
 
 def upload_video(browser, video_path):
 
