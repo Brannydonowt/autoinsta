@@ -9,9 +9,11 @@ For an example of an instagram account that uses the bot, check out [@trendmeist
 
 ## Recently Added
 - [X] ffmpeg auto-padded videos
+    
     *Automatically pads any TikTok content to fit the 4:3 Instagram Aspect Ratio* 
 - [X] Docker Support
-    *Added a basic Dockerfile that runs the bot via docker*
+   
+   *Added a basic Dockerfile that runs the bot via docker*
 
 ## Getting Started
 
