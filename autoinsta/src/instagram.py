@@ -10,7 +10,7 @@ def try_find_element(browser, bySelector, path):
         target_element = browser.find_element(bySelector, path)
         return True, target_element
     except:
-        print("Failed to find element: ", path)
+        utils.error_log(f"Failed to find element: {path}")
         return False, None
 
 def try_click_element(browser, bySelector, path):
@@ -25,6 +25,7 @@ class LandingPage:
         self.browser = browser
 
     def save_login_information(self):
+        # TODO - Update to By.CSS_SELECTOR
         return try_click_element(self.browser, By.XPATH, "/html/body/div[1]/section/main/div/div/div/div/button")
 
     def turn_on_notifications(self):

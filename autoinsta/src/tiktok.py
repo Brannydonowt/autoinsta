@@ -1,6 +1,7 @@
 from TikTokApi import TikTokApi
 
 import json
+import utils
 
 from random import randint
 
@@ -13,7 +14,7 @@ class TikTokVideoGet:
         self.cookies = self.get_cookies_from_file()
 
         self.api._get_cookies = self.get_cookies
-        print("initialized tiktok video helper")
+        utils.clean_log("initialized tiktok video helper")
 
     def get_cookies_from_file(self):
         with open('autoinsta/cookies/cookies.json') as f:
@@ -64,19 +65,15 @@ class TikTokVideoGet:
                     try:
                         video_data = trending_video.info()
                         self.desc = video_data['desc']
-                        print (self.desc)
 
                         self.video_author = trending_video.author.username
-                        print("video author: ", self.video_author)
+                        utils.clean_log("video author: ", self.video_author)
                         self.video_hashtags = trending_video.hashtags
                         self.hashtag_string = ""
                         for h in self.video_hashtags:
                             self.hashtag_string += (" #" + h.name)
-                        print("hashtag string:", self.hashtag_string)
                     except:
-                        print("Failed to pull video data")
-
-                    print (self.hashtag_string)
+                        utils.error_log("Failed to pull video data")
 
                     self.download_video_by_id(video_id)
                 

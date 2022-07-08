@@ -32,12 +32,9 @@ def get_optimal_padding(w, h):
 
 def add_video_pad(video_path, padding_x, padding_y):
     utils.clean_log(f"Processing Video at path: {video_path}")
-    w, h = get_video_resolution(video_path)
-    pw, ph = get_optimal_padding(w, h)
 
     input = ffmpeg.input(utils.abs_path(video_path))
+    #Padding - 'pad=ih*4/3:ih:(ow-iw)/2:(oh-ih)/2:color=white'
     output = ffmpeg.output(input, utils.abs_path('autoinsta/videos/final.mp4'), vcodec='libx264', vf=f'pad=ih*4/3:ih:(ow-iw)/2:(oh-ih)/2:color=white')
-    #'pad=ih*4/3:ih:(ow-iw)/2:(oh-ih)/2:color=white'
-    #pad=w=iw+{ph}:h=ih:x={pw}:y=0:color=white
     output.run(overwrite_output=True)
     return 'autoinsta/videos/final.mp4'
