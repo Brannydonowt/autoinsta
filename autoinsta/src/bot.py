@@ -7,7 +7,7 @@ import video
 import utils
 
 def Main():
-    VIDEO_EDIT = True
+    VIDEO_EDIT = False
 
     tik_tok, video_path = tiktok.get_tiktok_video()
     if video_path == False:
@@ -38,6 +38,6 @@ def Test_VideoEdit():
         utils.error_log("No video path was returned")
         #return False
 
-    video.add_video_pad('autoinsta/videos/tikTokTrending.mp4', 100, 100)
+    video.add_video_pad('autoinsta/videos/tikTokTrending.mp4')
 
 Main()
