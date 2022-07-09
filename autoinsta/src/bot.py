@@ -8,9 +8,7 @@ import driver
 import video
 import utils
 
-def Upload_Trending_TikTok():
-    VIDEO_EDIT = False
-
+def Upload_Trending_TikTok(VIDEO_EDIT=False, HEADLESS=True):
     tik_tok, video_path = tiktok.get_tiktok_video()
     if video_path == False:
         utils.error_log("No video path was returned")
@@ -19,9 +17,9 @@ def Upload_Trending_TikTok():
 
     if VIDEO_EDIT:
         utils.clean_log("Padding Video Content")
-        video_path = video.add_video_pad(video_path, 100, 100)
+        video_path = video.add_video_pad(video_path)
 
-    browser = driver.GetBrowser(headless=True)
+    browser = driver.GetBrowser(HEADLESS=HEADLESS)
 
     sleep(3)
 
@@ -34,17 +32,9 @@ def Upload_Trending_TikTok():
     
     browser.close()
 
-def Test_LoadPost():
-    browser = driver.GetBrowser(headless=False)
-
-    if instagram.navigate_to_homepage(browser):
-        post = instagram.load_post(browser, 'Cfy_C70LIM6')
-        post.like_post()
-        post.comment_post('What great content!')
-
 def Like_Relevant_Posts(hashtag, num):
 
-    browser = driver.GetBrowser(headless=False)
+    browser = driver.GetBrowser(HEADLESS=False)
 
     sleep(3)
 
@@ -52,7 +42,7 @@ def Like_Relevant_Posts(hashtag, num):
     if not result:
         utils.error_log("Failed to navigate to explore page.")
 
-    recent_posts = explore.get_recent_posts(10)
+    recent_posts = explore.get_recent_posts(num)
     print(recent_posts)
 
     sleep(3)
@@ -61,7 +51,12 @@ def Like_Relevant_Posts(hashtag, num):
         p = instagram.load_post(browser, recent_posts[x])
         sleep(5)
         p.like_post()
-        p.comment_post('Love this!!')       
+        p.comment_post('Love this!!')
+        p.follow_poster()
+
+    sleep(3)
+    browser.close()
+    utils.clean_log("Finished liking posts")     
 
 def Test_VideoEdit():
     tik_tok, video_path = tiktok.get_tiktok_video()
@@ -70,5 +65,3 @@ def Test_VideoEdit():
         #return False
 
     video.add_video_pad('autoinsta/videos/tikTokTrending.mp4')
-
-Like_Relevant_Posts('food', 10)

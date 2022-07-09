@@ -3,9 +3,9 @@ from selenium.webdriver.firefox.options import Options
 from webdriver_manager.firefox import GeckoDriverManager
 
 
-def GetBrowser(headless=False):
+def GetBrowser(HEADLESS=False):
     options = Options()
-    options.headless = headless
+    options.headless = HEADLESS
     
     browser = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
     browser.implicitly_wait(5)

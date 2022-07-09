@@ -2,14 +2,6 @@ import ffmpeg
 import sys
 import utils
 
-def init():
-    # Add ffmpeg exe's to local path (windows only?)
-    paths = [utils.abs_path('ffmpeg/ffmpeg.exe'), utils.abs_path('ffmpeg/ffplay.exe'), utils.abs_path('ffmpeg/ffprobe.exe')]
-
-    for s in paths:
-        print(s)
-        sys.path.insert(0,s)
-
 def get_video_resolution(video_path):
     probe = ffmpeg.probe(video_path)
     video_streams = [stream for stream in probe["streams"] if stream["codec_type"] == "video"]

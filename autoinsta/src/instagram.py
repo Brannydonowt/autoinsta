@@ -174,6 +174,10 @@ class Post:
         sleep(3)
         return try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(3)')
 
+    def follow_poster(self):
+        utils.clean_log("Following Poster")
+        return try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(2)')
+
 def navigate_to_homepage(browser):
     home_page = HomePage(browser)
     login_page = LoginPage(home_page.browser)
