@@ -38,7 +38,7 @@ def Test_LoadPost():
     browser = driver.GetBrowser(headless=False)
 
     if instagram.navigate_to_homepage(browser):
-        post = instagram.load_post(browser, 'Cfwn_WHMgoG')
+        post = instagram.load_post(browser, 'Cfy_C70LIM6')
         post.like_post()
         post.comment_post('What great content!')
 
@@ -48,8 +48,20 @@ def Like_Relevant_Posts(hashtag, num):
 
     sleep(3)
 
-    if instagram.navigate_to_explore(browser, hashtag):
-        utils.clean_log("navigated to explore page")
+    result, explore = instagram.navigate_to_explore(browser, hashtag)
+    if not result:
+        utils.error_log("Failed to navigate to explore page.")
+
+    recent_posts = explore.get_recent_posts(10)
+    print(recent_posts)
+
+    sleep(3)
+
+    for x in range(len(recent_posts)):
+        p = instagram.load_post(browser, recent_posts[x])
+        sleep(5)
+        p.like_post()
+        p.comment_post('Love this!!')       
 
 def Test_VideoEdit():
     tik_tok, video_path = tiktok.get_tiktok_video()
@@ -59,4 +71,4 @@ def Test_VideoEdit():
 
     video.add_video_pad('autoinsta/videos/tikTokTrending.mp4')
 
-Test_LoadPost()
+Like_Relevant_Posts('food', 10)

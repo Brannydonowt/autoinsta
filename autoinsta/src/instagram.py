@@ -120,6 +120,38 @@ class ExplorePage:
         self.browser = browser
         self.browser.get('https://www.instagram.com/explore/tags/' + hashtag)
 
+    def get_recent_post_id(self):
+        utils.clean_log("Getting recent post")
+
+    def get_recent_posts(self, num):
+        #    ._aao7 > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)
+        #    ._aao7 > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2)
+        #    ._aao7 > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > a:nth-child(1)
+        #   ._aao7 > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2)
+        recent = self.browser.find_element(By.CSS_SELECTOR, 'h2._aanc:nth-child(2)')
+        self.browser.execute_script("arguments[0].scrollIntoView(true);", recent)
+        sleep(5)
+
+        ids = list()
+        row = 0
+        for x in range(num):
+            column = x % 3
+            if column == 0:
+                row += 1
+
+            print("x =", x, " row =", row, "column = ", column)
+            elem = self.browser.find_element(By.CSS_SELECTOR, f'._aao7 > div:nth-child(3) > div:nth-child(1) > div:nth-child({row}) > div:nth-child({column + 1})')
+            a = elem.find_elements(By.TAG_NAME, 'a')       
+            for l in a:
+                url = l.get_attribute("href")
+                id = utils.get_part_from_url(url, 2)
+                print("1", utils.get_part_from_url(url, 1))
+                print("2", utils.get_part_from_url(url, 2))
+                utils.clean_log("id: " + id)
+                ids.append(id)
+        
+        return ids
+
 class Post:
     def __init__(self, browser, id):
         self.browser = browser
@@ -160,36 +192,21 @@ def navigate_to_homepage(browser):
     print("Failed to navigate to home page.")
     return False
 
+def navigate_to_explore(browser, hashtag):
+    navigate_to_homepage(browser)
+
+    sleep(3)
+    
+    explore = ExplorePage(browser, hashtag)
+    sleep(5)
+    return True, explore
+
 def load_post(browser, post_id):
     post = Post(browser, post_id)
     utils.clean_log("Loaded Post")
     return post
 
-def like_post(post, post_id):
-    try:
-        utils.clean_log("Trying to like post")
-        post.like_post()
-    except:
-        utils.error_log("Failed to like loaded post.")
-        return False
-    
-    utils.clean_log("Liked post succesfully")
-    return True
-
-def comment_post(post, post_id, comment):
-    try:
-        utils.clean_log("Trying to comment on post")
-        post.comment_post(comment)
-    except:
-        utils.error_log("Failed to comment on the loaded post")
-
-    utils.clean_log("commented on post succesfully")
-    return True
-
-
-
 def upload_video(browser, video_path):
-
     landing_page = LandingPage(browser)
     if landing_page.upload_page():
         utils.clean_log("STEP - Upload Page, complete")
