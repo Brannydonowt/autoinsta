@@ -1,14 +1,18 @@
 from time import sleep
 
 from browsers import browsers
+from autoinsta.src.instagram import sign_in_to_account
+from autoinsta.src.profile import ProfileManager
 
 import instagram
 import tiktok
 import driver
 import video
 import utils
+import mail
+import profile
 
-def Upload_Trending_TikTok(VIDEO_EDIT=False, HEADLESS=True):
+def Upload_Trending_TikTok(user, VIDEO_EDIT=False, HEADLESS=True):
     tik_tok, video_path = tiktok.get_tiktok_video()
     if video_path == False:
         utils.error_log("No video path was returned")
@@ -23,7 +27,7 @@ def Upload_Trending_TikTok(VIDEO_EDIT=False, HEADLESS=True):
 
     sleep(3)
 
-    if instagram.navigate_to_homepage(browser):
+    if instagram.sign_in_to_account(browser):
         if instagram.upload_video(browser, video_path):
             if instagram.finalise_upload(browser, tik_tok):
                 utils.clean_log("Video Uploaded Succesfully")
@@ -59,6 +63,11 @@ def Like_Relevant_Posts(hashtag, num):
     utils.clean_log("Finished liking posts")   
     return True  
 
+def Test_Email():
+    browser = driver.GetBrowser(HEADLESS=False)
+    mail.get_email_address(browser)
+
+
 def Test_VideoEdit():
     tik_tok, video_path = tiktok.get_tiktok_video()
     if video_path == False:
@@ -66,3 +75,11 @@ def Test_VideoEdit():
         #return False
 
     video.add_video_pad('autoinsta/videos/tikTokTrending.mp4')
+
+p_mgr = ProfileManager()
+
+p_mgr.parse_json()
+
+p = p_mgr.profiles[0]
+
+Upload_Trending_TikTok(p, VIDEO_EDIT=False, HEADLESS=False)

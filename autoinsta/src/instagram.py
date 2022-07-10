@@ -3,22 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
 import utils
-
-def try_find_element(browser, bySelector, path):
-    sleep(5)
-    try:
-        target_element = browser.find_element(bySelector, path)
-        return True, target_element
-    except:
-        utils.error_log(f"Failed to find element: {path}")
-        return False, None
-
-def try_click_element(browser, bySelector, path):
-    result, element = try_find_element(browser, bySelector, path)
-    if result == True:
-        element.click()
-    
-    return result
+import profile
+import mail
 
 class LandingPage:
     def __init__(self, browser):
@@ -26,16 +12,16 @@ class LandingPage:
 
     def save_login_information(self):
         # TODO - Update to By.CSS_SELECTOR
-        return try_click_element(self.browser, By.XPATH, "/html/body/div[1]/section/main/div/div/div/div/button")
+        return utils.try_click_element(self.browser, By.XPATH, "/html/body/div[1]/section/main/div/div/div/div/button")
 
     def turn_on_notifications(self):
-        return try_click_element(self.browser, By.CSS_SELECTOR, "button._a9--:nth-child(2)")
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, "button._a9--:nth-child(2)")
 
     def upload_page(self):
-        return try_click_element(self.browser, By.CSS_SELECTOR, '._acub > button:nth-child(1)')
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, '._acub > button:nth-child(1)')
 
     def upload_from_computer(self):
-        return try_click_element(self.browser, By.CSS_SELECTOR, '._ab9x > button:nth-child(1)')
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, '._ab9x > button:nth-child(1)')
 
     def upload_from_computer_cp(self, video_path): 
         utils.clean_log("Trying to send keys")
@@ -43,7 +29,7 @@ class LandingPage:
         # xpath is - "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div/div/div/div/div[2]/div[1]/form/input"
         # css selector is - ._ac2t > form:nth-child(2) > input:nth-child(1)
         # css path is - html._9dls.js-focus-visible._aa4c body._a3wf.system-fonts--body.segoe div#mount_0_0_TM div div div.rq0escxv.l9j0dhe7.du4w35lb div div div.hwddc3l5 div.rq0escxv.l9j0dhe7.du4w35lb div.j83agx80.cbu4d94t.h3gjbzrl.l9j0dhe7.dza99gun div.iqfcb0g7.tojvnm2t.a6sixzi8.k5wvi7nf.q3lfd5jv.pk4s997a.bipmatt0.cebpdrjk.qowsmv63.owwhemhu.dp1hu0rb.dhp61c6y.l9j0dhe7.iyyx5f41.a8s20v7p div.gs1a9yip.rq0escxv.j83agx80.cbu4d94t.buofh1pr.taijpn5t div.ll8tlv6m.rq0escxv.j83agx80.taijpn5t.tgvbjcpo.hpfvmrgz.hzruof5a div.du4w35lb.cjfnh4rs.lzcic4wl.ni8dbmo4.stjgntxs.oqq733wu.futnfnd5.mudwbb97.fg7vo5n6.q0p5rdf8.li38xygf div.ryzhgsaw.q0p5rdf8.nxkddm9p.d6zs4f6z.dopw56fx.lcf4bpt0.kbli7zfr.fg7vo5n6.mpyj2j6a.d2uofw50.h1gfnr7q.mgim66vq div.qg4pu3sx.flebnqrf.kzt5xp73.h98he7qt.e793r6ar.pi61vmqs.od1n8kyl.h6an9nv3.j4yusqav div._a3gq._ab-1 div div._ab8w._ab94._ab99._ab9f._ab9m._ab9o._ab9s div._ac2r div._ac2t form input._ac69
-        result, element = try_find_element(self.browser, By.CSS_SELECTOR, "._ac2t > form:nth-child(2) > input:nth-child(1)")
+        result, element = utils.try_find_element(self.browser, By.CSS_SELECTOR, "._ac2t > form:nth-child(2) > input:nth-child(1)")
         if result == True:
             element.send_keys(os.path.abspath(video_path))
             sleep(3)
@@ -70,13 +56,10 @@ class UploadPage:
         self.browser = browser
 
     def nextpage(self):
-        return try_click_element(self.browser, By.CSS_SELECTOR, "._abaa > button:nth-child(1)")
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, "._abaa > button:nth-child(1)")
 
     def write_caption(self, caption):
-        result, target = try_find_element(self.browser, By.CSS_SELECTOR, "textarea._ablz:nth-child(1)")
-        if result:
-            target.send_keys(caption)
-        return result
+        return utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, 'textarea._ablz:nth-child(1)', caption)
 
     def verify_upload(self):
         try:
@@ -85,23 +68,23 @@ class UploadPage:
         except:
             return False
         
-
 class LoginPage:
     def __init__(self, browser):
         self.browser = browser
 
     def login(self, username, password):
-        result1, username_input = try_find_element(self.browser, By.CSS_SELECTOR, "input[name='username']")
-        if not result1:
+        usr = utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "input[name='username']", username)
+        if not usr:
+            utils.error_log("Failed to send text to username field")
+            return False
+        
+        pwd = utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "input[name='password']", password)
+
+        if not pwd:
+            utils.error_log("Failed to send text to password field")
             return False
 
-        result2, password_input = try_find_element(self.browser, By.CSS_SELECTOR, "input[name='password']")
-        if not result2:
-            return False
-
-        username_input.send_keys(username)
-        password_input.send_keys(password)
-        return try_click_element(self.browser, By.XPATH, "//button[@type='submit']")
+        return utils.try_click_element(self.browser, By.XPATH, "//button[@type='submit']")
 
 class HomePage:
     def __init__(self, browser):
@@ -109,11 +92,35 @@ class HomePage:
         self.browser.get('https://www.instagram.com/')
 
     def accept_cookies(self):
-        return try_click_element(self.browser, By.CSS_SELECTOR, 'button.aOOlW:nth-child(2)')
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, 'button.aOOlW:nth-child(2)')
 
     def go_to_login_page(self):
         sleep(2)
         return LoginPage(self.browser)
+
+    def go_to_new_account_page(self):
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, '.izU2O > a:nth-child(1)')
+
+class CreateAccountPage:
+    def __init__(self, browser, p):
+        self.p = p
+        self.browser = browser
+        self.set_email_address(p.email)
+        
+    def set_email_address(self, email):
+        utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "input[name='username']")
+        print()
+    
+    def set_fullname(self, fullname):
+        print()
+
+    def set_username(self, username):
+        print()
+
+    def set_password(self, password):
+        print()
+
+    
 
 class ExplorePage:
     def __init__(self, browser, hashtag):
@@ -161,43 +168,53 @@ class Post:
 
     def like_post(self):
         utils.clean_log("Liking current post")
-        return try_click_element(self.browser, By.CSS_SELECTOR, '._aamw > button:nth-child(1)')
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, '._aamw > button:nth-child(1)')
 
     def comment_post(self, comment):
         utils.clean_log("Commenting on post")
-        result, element = try_find_element(self.browser, By.CSS_SELECTOR, '._ablz')
+        result, element = utils.try_find_element(self.browser, By.CSS_SELECTOR, '._ablz')
         if not result:
             utils.error_log("Failed to find comment element")
             return False
         
         element.send_keys(comment)
         sleep(3)
-        return try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(3)')
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(3)')
 
     def follow_poster(self):
         utils.clean_log("Following Poster")
-        return try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(2)')
+        return utils.try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(2)')
 
-def navigate_to_homepage(browser):
+def sign_in_to_account(browser, profile):
     home_page = HomePage(browser)
     login_page = LoginPage(home_page.browser)
-    usr, pwd = utils.get_account_details()
-    if home_page.accept_cookies():
-        utils.clean_log("STEP - Accept Cookies, complete")
-        if login_page.login(usr, pwd):
-            utils.clean_log("STEP - Login, Complete")
-            landing_page = LandingPage(login_page.browser)
-            if landing_page.save_login_information():
-                utils.clean_log("STEP - Save Login Information, complete")
-                if landing_page.turn_on_notifications():
-                    utils.clean_log("STEP - Notification Settings, complete")
-                    return True
+
+    if profile.get_login_details() == 'MAKE_ACCOUNT':
+        utils.clean_log("New account is being created.")
+        if home_page.accept_cookies():
+            utils.clean_log("STEP - Accept Cookies, complete")
+
+
+
+        print()
+    else:
+        usr, pwd = profile.get_login_details()
+        if home_page.accept_cookies():
+            utils.clean_log("STEP - Accept Cookies, complete")
+            if login_page.login(usr, pwd):
+                utils.clean_log("STEP - Login, Complete")
+                landing_page = LandingPage(login_page.browser)
+                if landing_page.save_login_information():
+                    utils.clean_log("STEP - Save Login Information, complete")
+                    if landing_page.turn_on_notifications():
+                        utils.clean_log("STEP - Notification Settings, complete")
+                        return True
     
     print("Failed to navigate to home page.")
     return False
 
 def navigate_to_explore(browser, hashtag):
-    navigate_to_homepage(browser)
+    sign_in_to_account(browser)
 
     sleep(3)
     
