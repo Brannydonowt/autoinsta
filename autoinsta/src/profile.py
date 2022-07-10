@@ -1,9 +1,8 @@
 # Responsible for creating/managing profiles and what they can post/target
 
 import json
-from autoinsta.src.utils import get_account_details
 import utils
-from os import path
+import os
 
 class Profile():
     def __init__(self, j):
@@ -20,15 +19,17 @@ class Profile():
 
     def get_login_details(self):
         utils.clean_log(f"Retrieving login information for account: {self.username}")
-        if path.isdir(f'autoinsta/profiles/{self.username}'):
+        f = f'autoinsta/profiles/{self.username}/login.pass'
+        if os.path.isdir(f'autoinsta/profiles/{self.username}'):
             utils.clean_log("user already has information stored.")
-            if get_account_details() == False:
+            if utils.get_account_details(f) == False:
                 utils.clean_log("User exists, but account has not been created.")
-                self.create_account_password()
                 return 'MAKE_ACCOUNT'
-                # Make account()
             else:
-                return get_account_details()
+                return utils.get_account_details(f)
+        else:
+            utils.clean_log("no user information stored for this user")
+            return 'MAKE_ACCOUNT'
 
     def get_account_password(self):
         path = f'autoinsta/profiles/{self.username}/login.pass'
@@ -40,9 +41,14 @@ class Profile():
     def create_account_password(self):
         password = utils.generate_password(12)
         self.save_login_details(password)
+        return password
 
     def save_login_details(self, password):
-        f = open(f'autoinsta/profiles/{self.username}/login.pass', "w")
+        root = f'autoinsta/profiles/{self.username}/'
+        if not os.path.exists(root):
+            os.makedirs(root)
+
+        f = open(root + 'login.pass', "w+")
         f.write(f'{self.username}\n')
         f.write(f'{password}')
         f.close()

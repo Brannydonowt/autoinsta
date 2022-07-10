@@ -1,4 +1,5 @@
 import os
+from os import path
 import json
 import random
 import string
@@ -28,10 +29,13 @@ def get_part_from_url(url, part):
 def abs_path(local_path):
     return os.path.abspath(local_path)
 
-def get_account_details():
-    f = open('autoinsta/profiles/instagram.pass')
-    details = f.readlines()
-    return details[0], details[1]
+def get_account_details(file):
+    if path.isfile(file):
+        f = open(file)
+        details = f.readlines()
+        return details[0], details[1]
+    else:
+        return False
 
 def clean_log(message):
     print("*****", message, "*****")
@@ -61,7 +65,7 @@ def try_click_element(browser, bySelector, path):
     return result
 
 def try_sendtext_element(browser, bySelector, path, text):
-    result, target = try_find_element(browser, By.CSS_SELECTOR, "textarea._ablz:nth-child(1)")
+    result, target = try_find_element(browser, bySelector, path)
     if result:
         target.send_keys(text)
     return result

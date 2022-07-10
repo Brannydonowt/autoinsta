@@ -1,10 +1,12 @@
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 import os
+from mail import Email
 import utils
 import profile
-import mail
+import driver
 
 class LandingPage:
     def __init__(self, browser):
@@ -99,28 +101,92 @@ class HomePage:
         return LoginPage(self.browser)
 
     def go_to_new_account_page(self):
+        utils.clean_log("Trying to move to sign up page.")
         return utils.try_click_element(self.browser, By.CSS_SELECTOR, '.izU2O > a:nth-child(1)')
 
 class CreateAccountPage:
     def __init__(self, browser, p):
-        self.p = p
         self.browser = browser
-        self.set_email_address(p.email)
+
+        ebrowser = driver.GetBrowser(HEADLESS=False)
+        self.mail = Email(ebrowser)
+
+        email = self.mail.get_email()
+        
+        self.set_email_address(email)
+        self.set_fullname("Micheal Watts")
+        self.set_username(p.username)
+        self.set_password(p.create_account_password())
+
+        self.submit_user_details()
         
     def set_email_address(self, email):
-        utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "input[name='username']")
-        print()
+        utils.clean_log("Setting Email Address")
+        utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "div.WZdjL:nth-child(4) > div:nth-child(1) > label:nth-child(1) > input:nth-child(2)", email)
     
     def set_fullname(self, fullname):
-        print()
+        utils.clean_log("Setting Fullname")
+        utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "div.WZdjL:nth-child(5) > div:nth-child(1) > label:nth-child(1) > input:nth-child(2)", fullname)
 
     def set_username(self, username):
-        print()
+        utils.clean_log("Setting Username")
+        utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "div.WZdjL:nth-child(6) > div:nth-child(1) > label:nth-child(1) > input:nth-child(2)", username)
 
     def set_password(self, password):
-        print()
+        utils.clean_log("Setting Password")
+        utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, "div.WZdjL:nth-child(7) > div:nth-child(1) > label:nth-child(1) > input:nth-child(2)", password)
 
-    
+    def set_birth_date(self):
+        res1, month = utils.try_find_element(self.browser, By.CSS_SELECTOR, 'span.O15Fw:nth-child(1) > select:nth-child(2)')
+        if not res1:
+            utils.error_log("Failed to find month select element")
+            return False
+        
+        res2, day = utils.try_find_element(self.browser, By.CSS_SELECTOR, 'span.O15Fw:nth-child(2) > select:nth-child(2)')
+        if not res2:
+            utils.error_log("Failed to find day select element")
+            return False
+
+        res3, year = utils.try_find_element(self.browser, By.CSS_SELECTOR, 'span.O15Fw:nth-child(3) > select:nth-child(2)')
+        if not res3:
+            utils.error_log("Failed to find year select element")
+            return False
+
+        # select by value
+        Month = Select(month)
+        Month.select_by_value('8')
+        Day = Select(day)
+        Day.select_by_value('12')
+        Year = Select(year)
+        Year.select_by_value('1986')
+
+        sleep(3)
+
+        self.submit_birth_details()
+
+    def submit_user_details(self):
+        utils.clean_log("Submitting account details")
+        if utils.try_click_element(self.browser, By.CSS_SELECTOR, 'div.bkEs3:nth-child(1) > button:nth-child(1)'):
+            utils.clean_log("Details submitted succesfully")
+            sleep(5)
+            self.set_birth_date()
+
+    def submit_birth_details(self):
+        utils.clean_log("Submitting Birthdate Details")
+        if utils.try_click_element(self.browser, By.CSS_SELECTOR, '.L3NKy'):
+            utils.clean_log("Birthdate submitted succesfully")
+            verif = self.mail.get_verification_code()
+            self.enter_verification_code(verif)
+            # Do something about verifying email
+
+    def enter_verification_code(self, code):
+        utils.clean_log("Entering email verification")
+        if utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, '.j_2Hd', code):
+            utils.clean_log("Email Submitted Succesfully")
+            if utils.try_click_element(self.browser, By.CSS_SELECTOR, '.L3NKy'):
+                utils.clean_log("Clicked next step succesfully")
+                sleep(100)
+                
 
 class ExplorePage:
     def __init__(self, browser, hashtag):
@@ -193,10 +259,8 @@ def sign_in_to_account(browser, profile):
         utils.clean_log("New account is being created.")
         if home_page.accept_cookies():
             utils.clean_log("STEP - Accept Cookies, complete")
-
-
-
-        print()
+            if home_page.go_to_new_account_page():
+                acc = CreateAccountPage(browser, profile)
     else:
         usr, pwd = profile.get_login_details()
         if home_page.accept_cookies():

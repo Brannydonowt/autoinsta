@@ -22,6 +22,24 @@ class Email:
             sleep(3)
             return pyperclip.paste()
 
+    def get_verification_code(self):
+        utils.clean_log("Getting verification code.")
+        utils.clean_log("Sleeping 30 seconds before trying to retrieve")
+        sleep(30)
+
+        res, element = utils.try_find_element(self.browser, By.CSS_SELECTOR, '.inbox-dataList > ul:nth-child(1) > li:nth-child(2) > div:nth-child(2) > span:nth-child(1) > a:nth-child(1)')
+        if not res:
+            utils.error_log("Failed to retrieve verification email")
+            return False
+
+        return self.parse_verification_code(element)
+
+    def parse_verification_code(self, elem):
+        utils.clean_log("Parsing verification code")
+        str = elem.text.split(' ')
+        utils.clean_log(f'Parsed Verification code is: {str[0]}')
+        return str[0]
+
 def get_email_address(browser):
     e = Email(browser)
     return e.get_email()
