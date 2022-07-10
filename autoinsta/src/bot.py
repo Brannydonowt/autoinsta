@@ -56,7 +56,8 @@ def Like_Relevant_Posts(hashtag, num):
 
     sleep(3)
     browser.close()
-    utils.clean_log("Finished liking posts")     
+    utils.clean_log("Finished liking posts")   
+    return True  
 
 def Test_VideoEdit():
     tik_tok, video_path = tiktok.get_tiktok_video()
