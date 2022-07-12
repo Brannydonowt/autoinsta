@@ -44,6 +44,8 @@ def Like_Relevant_Posts(user, num, HEADLESS=False):
     result, explore = instagram.navigate_to_explore(user, browser, user.topic)
     if not result:
         utils.error_log("Failed to navigate to explore page.")
+        utils.error_log("This usually happens when a user failed to sign in.\n1) Try Running Again\n2) Check your Login details\n3)check the account exists\nCheck")
+        return False
 
     recent_posts = explore.get_recent_posts(num)
     print(recent_posts)

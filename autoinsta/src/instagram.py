@@ -284,13 +284,14 @@ def sign_in_to_account(browser, profile):
     return False
 
 def navigate_to_explore(profile, browser, hashtag):
-    sign_in_to_account(browser, profile)
-
-    sleep(3)
-    
-    explore = ExplorePage(browser, hashtag)
-    sleep(5)
-    return True, explore
+    if sign_in_to_account(browser, profile):
+        sleep(3)
+        
+        explore = ExplorePage(browser, hashtag)
+        sleep(5)
+        return True, explore
+    else:
+        return False
 
 def load_post(browser, post_id):
     post = Post(browser, post_id)
