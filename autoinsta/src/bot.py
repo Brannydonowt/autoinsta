@@ -34,6 +34,7 @@ def Upload_Trending_TikTok(user, VIDEO_EDIT=False, HEADLESS=True):
                 return True
     
     browser.close()
+    return
 
 def Like_Relevant_Posts(hashtag, num):
 
@@ -77,5 +78,5 @@ def Test_VideoEdit():
 
 p_mgr = ProfileManager()
 p_mgr.parse_json()
-p = p_mgr.profiles[0]
-Upload_Trending_TikTok(p, VIDEO_EDIT=False, HEADLESS=False)
+for p in p_mgr.profiles:
+    Upload_Trending_TikTok(p, VIDEO_EDIT=False, HEADLESS=False)

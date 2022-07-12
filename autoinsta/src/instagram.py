@@ -261,6 +261,9 @@ def sign_in_to_account(browser, profile):
             utils.clean_log("STEP - Accept Cookies, complete")
             if home_page.go_to_new_account_page():
                 acc = CreateAccountPage(browser, profile)
+                browser.close()
+                sign_in_to_account(browser, profile)
+                return True
     else:
         usr, pwd = profile.get_login_details()
         if home_page.accept_cookies():

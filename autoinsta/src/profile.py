@@ -68,7 +68,6 @@ class ProfileManager():
             self.profiles.append(prof)
 
 mgr = ProfileManager()
-
 mgr.parse_json()
 
     
