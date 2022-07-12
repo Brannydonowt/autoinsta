@@ -1,3 +1,4 @@
+from distutils.log import error
 import os
 from os import path
 import json
@@ -60,7 +61,11 @@ def try_find_element(browser, bySelector, path):
 def try_click_element(browser, bySelector, path):
     result, element = try_find_element(browser, bySelector, path)
     if result == True:
-        element.click()
+        try:
+            element.click()
+        except:
+            error_log("Failed to click on error, has the page loaded correctly? Is the button obscured?")
+            return result
     
     return result
 

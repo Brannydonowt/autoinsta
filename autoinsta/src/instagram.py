@@ -5,7 +5,6 @@ from selenium.webdriver.support.ui import Select
 import os
 from mail import Email
 import utils
-import profile
 import driver
 
 class LandingPage:
@@ -31,6 +30,9 @@ class LandingPage:
         # xpath is - "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div/div/div/div/div[2]/div[1]/form/input"
         # css selector is - ._ac2t > form:nth-child(2) > input:nth-child(1)
         # css path is - html._9dls.js-focus-visible._aa4c body._a3wf.system-fonts--body.segoe div#mount_0_0_TM div div div.rq0escxv.l9j0dhe7.du4w35lb div div div.hwddc3l5 div.rq0escxv.l9j0dhe7.du4w35lb div.j83agx80.cbu4d94t.h3gjbzrl.l9j0dhe7.dza99gun div.iqfcb0g7.tojvnm2t.a6sixzi8.k5wvi7nf.q3lfd5jv.pk4s997a.bipmatt0.cebpdrjk.qowsmv63.owwhemhu.dp1hu0rb.dhp61c6y.l9j0dhe7.iyyx5f41.a8s20v7p div.gs1a9yip.rq0escxv.j83agx80.cbu4d94t.buofh1pr.taijpn5t div.ll8tlv6m.rq0escxv.j83agx80.taijpn5t.tgvbjcpo.hpfvmrgz.hzruof5a div.du4w35lb.cjfnh4rs.lzcic4wl.ni8dbmo4.stjgntxs.oqq733wu.futnfnd5.mudwbb97.fg7vo5n6.q0p5rdf8.li38xygf div.ryzhgsaw.q0p5rdf8.nxkddm9p.d6zs4f6z.dopw56fx.lcf4bpt0.kbli7zfr.fg7vo5n6.mpyj2j6a.d2uofw50.h1gfnr7q.mgim66vq div.qg4pu3sx.flebnqrf.kzt5xp73.h98he7qt.e793r6ar.pi61vmqs.od1n8kyl.h6an9nv3.j4yusqav div._a3gq._ab-1 div div._ab8w._ab94._ab99._ab9f._ab9m._ab9o._ab9s div._ac2r div._ac2t form input._ac69
+        if self.select_upload_file():
+            print("Clicked upload button")
+
         result, element = utils.try_find_element(self.browser, By.CSS_SELECTOR, "._ac2t > form:nth-child(2) > input:nth-child(1)")
         if result == True:
             element.send_keys(os.path.abspath(video_path))
@@ -38,10 +40,13 @@ class LandingPage:
         
         return result
 
-    def select_upload_file(self, video_path):
+    def select_upload_file(self):
         sleep(3)
-        return True
 
+        if utils.try_click_element(self.browser, By.CSS_SELECTOR, '._ab9x > button:nth-child(1)'):
+            return True
+        else:
+            return False
         sleep(3)
 
         autoit.control_send("File Upload","Edit1", os.path.abspath(video_path))
@@ -238,12 +243,10 @@ class Post:
 
     def comment_post(self, comment):
         utils.clean_log("Commenting on post")
-        result, element = utils.try_find_element(self.browser, By.CSS_SELECTOR, '._ablz')
+        result = utils.try_sendtext_element(self.browser, By.CSS_SELECTOR, '._ablz', comment)
         if not result:
-            utils.error_log("Failed to find comment element")
             return False
-        
-        element.send_keys(comment)
+
         sleep(3)
         return utils.try_click_element(self.browser, By.CSS_SELECTOR, 'button._acan:nth-child(3)')
 
@@ -280,8 +283,8 @@ def sign_in_to_account(browser, profile):
     print("Failed to navigate to home page.")
     return False
 
-def navigate_to_explore(browser, hashtag):
-    sign_in_to_account(browser)
+def navigate_to_explore(profile, browser, hashtag):
+    sign_in_to_account(browser, profile)
 
     sleep(3)
     
@@ -300,16 +303,14 @@ def upload_video(browser, video_path):
         utils.clean_log("STEP - Upload Page, complete")
         if landing_page.upload_from_computer_cp(video_path):
             utils.clean_log("STEP - Select Upload, complete")
-            if landing_page.select_upload_file(video_path):
-                utils.clean_log("STEP - Upload File, complete")
-                return True
+            return True
     
     return False
 
-def finalise_upload(browser, tik_tok):
+def finalise_upload(browser, tik_tok, profile):
     result = True
 
-    my_hashtags = "#funny #meme #follow #f4f #like #l4l #tiktok #trend #trendy #food #hungry #followers #follow4follow #trending #laugh #wholesome #cute #doggo #morning"
+    my_hashtags = profile.get_hashtag_string()
     
     upload_page = UploadPage(browser)
     if upload_page.nextpage():

@@ -28,7 +28,7 @@ def Upload_Trending_TikTok(user, VIDEO_EDIT=False, HEADLESS=True):
 
     if instagram.sign_in_to_account(browser, user):
         if instagram.upload_video(browser, video_path):
-            if instagram.finalise_upload(browser, tik_tok):
+            if instagram.finalise_upload(browser, tik_tok, user):
                 utils.clean_log("Video Uploaded Succesfully")
                 browser.close()
                 return True
@@ -36,13 +36,13 @@ def Upload_Trending_TikTok(user, VIDEO_EDIT=False, HEADLESS=True):
     browser.close()
     return
 
-def Like_Relevant_Posts(hashtag, num):
+def Like_Relevant_Posts(user, num, HEADLESS=False):
 
-    browser = driver.GetBrowser(HEADLESS=False)
+    browser = driver.GetBrowser(HEADLESS=HEADLESS)
 
     sleep(3)
 
-    result, explore = instagram.navigate_to_explore(browser, hashtag)
+    result, explore = instagram.navigate_to_explore(user, browser, user.topic)
     if not result:
         utils.error_log("Failed to navigate to explore page.")
 
@@ -55,7 +55,7 @@ def Like_Relevant_Posts(hashtag, num):
         p = instagram.load_post(browser, recent_posts[x])
         sleep(5)
         p.like_post()
-        p.comment_post('Love this!!')
+        p.comment_post(user.get_random_comment())
         p.follow_poster()
 
     sleep(3)
@@ -79,4 +79,5 @@ def Test_VideoEdit():
 p_mgr = ProfileManager()
 p_mgr.parse_json()
 for p in p_mgr.profiles:
+    Like_Relevant_Posts(p, 10, HEADLESS=False)
     Upload_Trending_TikTok(p, VIDEO_EDIT=False, HEADLESS=False)

@@ -1,6 +1,7 @@
 # Responsible for creating/managing profiles and what they can post/target
 
 import json
+from random import randint
 import utils
 import os
 
@@ -53,6 +54,16 @@ class Profile():
         f.write(f'{password}')
         f.close()
 
+    def get_hashtag_string(self):
+        res = ""
+        for h in self.tags:
+            res += '#' + h + ' '
+        return res
+
+    def get_random_comment(self):
+        i = randint(0, len(self.comments))
+        return self.comments[i]
+
 
 class ProfileManager():
     def __init__(self):
@@ -66,9 +77,6 @@ class ProfileManager():
         for profile in data:
             prof = Profile(profile)
             self.profiles.append(prof)
-
-mgr = ProfileManager()
-mgr.parse_json()
 
     
 
