@@ -1,0 +1,77 @@
+// This is the JSON Format for running multiple instagram accounts.
+// Create a file named map.json and place it in the same directory (autoinsta/profiles/) in order to run the bot.
+
+// If you want to use an account that already exists, create a folder with the correct username in this directory, with a .pass file inside.
+// E.G - autoinsta/profiles/exampleaccount.pass
+[
+    {
+        "username" : "pizzapageultimate9001",
+        "bio" : "Pizza is simply the best!",
+        "topic" : "pizza",
+        "tags" : 
+        [
+            "food",
+            "pizza",
+            "hungry",
+            "foodporn",
+            "ross",
+            "phoebe",
+            "rachel",
+            "nyc",
+            "tv",
+            "comedy",
+            "freinds",
+            "throwback"
+        ],
+        "comments":
+        [
+            "I love this moment!!",
+            "I remember watching this for the first time!",
+            "This moment <3",
+            "Ahahaha!",
+            "Love this!",
+            "Haven't seen this in a while",
+            "Aww, the memories",
+            "Friends will always hold a place in my heart",
+            "I love things like this",
+            "OMG! My favourite clip!",
+            "THIS CLIP!!!!",
+            "YESSSS! I LOVE THIS!"
+        ]
+    },
+    {
+        "username" : "onlygameshow1000",
+        "bio" : "Top quality Game Shows content!!",
+        "topic" : "gameshow",
+        "tags" : 
+        [
+            "gameshow",
+            "sitcom",
+            "funny",
+            "joey",
+            "ross",
+            "phoebe",
+            "rachel",
+            "nyc",
+            "tv",
+            "comedy",
+            "freinds",
+            "throwback"
+        ],
+        "comments":
+        [
+            "I love this moment!!",
+            "I remember watching this for the first time!",
+            "This moment <3",
+            "Ahahaha!",
+            "Love this!",
+            "Haven't seen this in a while",
+            "Aww, the memories",
+            "Friends will always hold a place in my heart",
+            "I love things like this",
+            "OMG! My favourite clip!",
+            "THIS CLIP!!!!",
+            "YESSSS! I LOVE THIS!"
+        ]
+    }
+]

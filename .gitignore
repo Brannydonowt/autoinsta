@@ -1,5 +1,5 @@
 # Branny
-!*/example.json
+map.json
 *.pass
 *.exe
 
@@ -132,7 +132,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-profiles/ultimatefoodmemes
+
+autoinsta/profiles/ultimatefoodmemes
 videos/tikTokTrending.mp4
-autoinsta/profiles
 autoinsta/videos
