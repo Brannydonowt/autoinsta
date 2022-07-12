@@ -113,7 +113,7 @@ class CreateAccountPage:
     def __init__(self, browser, p):
         self.browser = browser
 
-        ebrowser = driver.GetBrowser(HEADLESS=False)
+        ebrowser = driver.GetBrowser(HEADLESS=True)
         self.mail = Email(ebrowser)
 
         email = self.mail.get_email()
