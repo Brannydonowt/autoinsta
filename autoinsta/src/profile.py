@@ -61,7 +61,7 @@ class Profile():
         return res
 
     def get_random_comment(self):
-        i = randint(0, len(self.comments))
+        i = randint(0, len(self.comments) - 1)
         return self.comments[i]
 
 
