@@ -4,6 +4,7 @@ import json
 from random import randint
 import utils
 import os
+from bing_image_downloader import downloader
 
 class Profile():
     def __init__(self, j):
@@ -17,6 +18,7 @@ class Profile():
         self.tags = self.j['tags']
         self.comments = self.j['comments']
         print("Profile:", self.username, "parsed succesfully")
+        #self.get_profile_picture()
 
     def get_login_details(self):
         utils.clean_log(f"Retrieving login information for account: {self.username}")
@@ -63,6 +65,9 @@ class Profile():
     def get_random_comment(self):
         i = randint(0, len(self.comments) - 1)
         return self.comments[i]
+
+    def get_profile_picture(self):
+        downloader.download(self.topic, limit=1,  output_dir=f'autoinsta/profiles/{self.username}/', adult_filter_off=True, force_replace=False, timeout=60, verbose=True)
 
 
 class ProfileManager():

@@ -5,3 +5,4 @@ schedule
 webdriver-manager
 ffmpeg-python
 pyperclip
+bing-image-downloader
