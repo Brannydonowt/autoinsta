@@ -9,7 +9,6 @@ import driver
 import video
 import utils
 import mail
-import profile
 
 def Upload_Trending_TikTok(user, VIDEO_EDIT=False, HEADLESS=True):
     tik_tok, video_path = tiktok.get_tiktok_video()
@@ -67,7 +66,6 @@ def Test_Email():
     browser = driver.GetBrowser(HEADLESS=False)
     mail.get_email_address(browser)
 
-
 def Test_VideoEdit():
     tik_tok, video_path = tiktok.get_tiktok_video()
     if video_path == False:
@@ -75,9 +73,3 @@ def Test_VideoEdit():
         #return False
 
     video.add_video_pad('autoinsta/videos/tikTokTrending.mp4')
-
-p_mgr = ProfileManager()
-p_mgr.parse_json()
-for p in p_mgr.profiles:
-    Like_Relevant_Posts(p, 10, HEADLESS=False)
-    Upload_Trending_TikTok(p, VIDEO_EDIT=False, HEADLESS=False)
