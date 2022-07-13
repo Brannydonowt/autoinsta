@@ -3,6 +3,13 @@ map.json
 *.pass
 *.exe
 
+autoinsta/profiles/*
+!autoinsta/profiles/example/
+!autoinsta/profiles/example/*.pass
+videos/tikTokTrending.mp4
+autoinsta/videos
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -132,7 +139,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-autoinsta/profiles/ultimatefoodmemes
-videos/tikTokTrending.mp4
-autoinsta/videos
