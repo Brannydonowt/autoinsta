@@ -59,21 +59,39 @@ playwright install
 Make sure you have a valid web driver installed and placed into your PATH for Selenium.
 [Follow this link for more information on how to do that](https://pypi.org/project/selenium/)
 
-Create a folder at the root called "profiles".
-In this folder create a file called "instagram.pass", and write your login details inside as like so:
+Look at the `autoinsta/profiles` folder. Inside is a `example.json` file. Duplicate this file and rename it to `map.json`
+Open `map.json` and fill out the relevant information for your account profile.
+
+### Using an existing account
+Create a folder in `autoinsta/profiles` named after your account username. For example: `autoinsta/profiles/example/`
+
+In this folder create a file called `login.pass`, and write your login details inside as like so:
 ```
 exampleaccount@example.com
 examplepassword123
 ```
-path should look like: *autoinsta/profiles/instagram.pass*
+path should look like: `autoinsta/profiles/username/login.pass`
 
 *.pass files are in the .gitignore, so will not be picked up when commiting, you can also remove the requirement for this file by manually entering your login details in the instagram.py.*
 *To do this, go to instagram.py. Delete line 107 and enter your details in the place of usr and pwd on line 109*
 
-You can now compile run bot.py to upload a single trending tiktok video to your instagram page.
+### Creating new accounts
+To run the bot and create new accounts automatically, simply define the profile you would like to be created in the `map.json` file. Ensure your username is unique beforehand, as you could run into issues otherwise.
 
-You can also adjust and run scheduler.py to schedule posts every x minutes or at certain times throughout the day.
+**Important** - The account will be created using a temporary email address. If you intend to use the account for a long period of time - migrate the account to a new email address manually. Login details are stored in a login.pass file.
+
+### Next Steps
+
+`brain.py` contains example code that shows how to carry out the most basic tasks that the bot is capable of.
+
+Use the schedule class to set intervals for how often tasks should be carried out.
+
+You can also adjust and run `brain.py` to schedule posts every x minutes or at certain times throughout the day.
 [Follow this link for more information on how to do that](https://pypi.org/project/schedule/)
+
+Feel free to read through the project code and offer up any suggestions, tweaks or improvements. 
+
+This is my first public, intermediate python project, and so any feedback is always appreciated.
 
 ### Cookies
 
@@ -81,18 +99,8 @@ You can also adjust and run scheduler.py to schedule posts every x minutes or at
 
 This can be done using a browser extension [like this one.](https://add0n.com/cookie-editor.html)
 
-## Development Plan
-##### This is a hobby project, and so further development is not guaranteed, however below are some of the features I'd like to add.
+#### This is a hobby project, and so further development is not guaranteed, however below are some of the features I'd like to add.
 
-- Post Likes
-    - Automatically find posts of a certain type/hashtag and like x number of them
-- Page Following
-    - Automatically find relevant pages and follow x number of them
-- Post Reels/Story's
-- Video Editing
-    - Automatically edit videos to include watermarks, corrected aspect ratios, captions.
-- Commenting
-    - Comment on relevant posts with reasonable messages (potentially using OpenAI to generate natural comments)
 
 
 
