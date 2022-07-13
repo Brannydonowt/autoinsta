@@ -101,6 +101,11 @@ This is my first public, intermediate python project, and so any feedback is alw
 This can be done using a browser extension [like this one.](https://add0n.com/cookie-editor.html)
 
 #### This is a hobby project, and so further development is not guaranteed, however below are some of the features I'd like to add.
+- [ ] Mutliple Instance Deployment
+- [ ] Better Error Handling/Checking
+- [ ] Automatic Profile Setup (Bio's, Profile Pictures)
+- [ ] Profile Analytics (Growth, Likes, posts, etc...)
+- [ ] **Better Video Targeting (Find videos based on #)**
 
 
 
