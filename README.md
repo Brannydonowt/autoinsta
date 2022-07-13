@@ -12,10 +12,10 @@ For an example of an instagram account that uses the bot, check out [@trendmeist
 
     *You can define any profile that you'd like in "autoinsta/profiles/map.json" and an account will be generated if one doesn't already exist.*
 - [X] Better Profile Management
-`   *Profiles can now be defined in "autoinsta/profiles/map.json" and the bot will behave according to the details provided in there.*
+
+    *Profiles can now be defined in "autoinsta/profiles/map.json" and the bot will behave according to the details provided in there.*
     *Bot will like, comment and follow posts/users with the correct topic (Food, Memes, Funny, etc...)*
     *Bot will place relevant hashtags on posts based on profile information*
-`
 - [X] ffmpeg auto-padded videos
     
     *Automatically pads any TikTok content to fit the 4:3 Instagram Aspect Ratio* 
