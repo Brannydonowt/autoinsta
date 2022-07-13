@@ -217,14 +217,11 @@ class ExplorePage:
             if column == 0:
                 row += 1
 
-            print("x =", x, " row =", row, "column = ", column)
             elem = self.browser.find_element(By.CSS_SELECTOR, f'._aao7 > div:nth-child(3) > div:nth-child(1) > div:nth-child({row}) > div:nth-child({column + 1})')
             a = elem.find_elements(By.TAG_NAME, 'a')       
             for l in a:
                 url = l.get_attribute("href")
                 id = utils.get_part_from_url(url, 2)
-                print("1", utils.get_part_from_url(url, 1))
-                print("2", utils.get_part_from_url(url, 2))
                 utils.clean_log("id: " + id)
                 ids.append(id)
         
@@ -291,7 +288,8 @@ def navigate_to_explore(profile, browser, hashtag):
         sleep(5)
         return True, explore
     else:
-        return False
+        utils.error_log("Failed getting to explore page. Try running without headless mode to see what went wrong.")
+        return False, False
 
 def load_post(browser, post_id):
     post = Post(browser, post_id)
