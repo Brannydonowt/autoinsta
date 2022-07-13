@@ -1,6 +1,6 @@
 # autoinsta
 ## An Automated Instagram Page Manager
-### Interact with relevant hashtags, follow pages, and grow your instagram automatically.
+### Post Trending Tiktoks, Interact with relevant hashtags, Follow relevant pages and grow your instagram automatically.
 
 This is an in-development automated social media tool, built on Selenium, that I am developing for fun.
 
