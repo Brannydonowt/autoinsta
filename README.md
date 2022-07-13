@@ -7,7 +7,15 @@ I am currently also using the TikTokAPI for video retrieval.
 
 For an example of an instagram account that uses the bot, check out [@trendmeisters](https://www.instagram.com/trendmeisters/?hl=en)
 
-## Recently Added
+## Recently Added Features
+- [X] Account Creation Process
+
+    *You can define any profile that you'd like in "autoinsta/profiles/map.json" and an account will be generated if one doesn't already exist.*
+- [X] Better Profile Management
+`   *Profiles can now be defined in "autoinsta/profiles/map.json" and the bot will behave according to the details provided in there.*
+    *Bot will like, comment and follow posts/users with the correct topic (Food, Memes, Funny, etc...)*
+    *Bot will place relevant hashtags on posts based on profile information*
+`
 - [X] ffmpeg auto-padded videos
     
     *Automatically pads any TikTok content to fit the 4:3 Instagram Aspect Ratio* 
