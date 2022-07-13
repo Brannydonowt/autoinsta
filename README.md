@@ -1,5 +1,6 @@
 # autoinsta
-## A small Python project that automatically takes trending tik toks and uploads them to instagram.
+## An Automated Instagram Page Manager
+### Interact with relevant hashtags, follow pages, and grow your instagram automatically.
 
 This is an in-development automated social media tool, built on Selenium, that I am developing for fun.
 
