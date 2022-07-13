@@ -2,7 +2,7 @@
 // Create a file named map.json and place it in the same directory (autoinsta/profiles/) in order to run the bot.
 
 // If you want to use an account that already exists, create a folder with the correct username in this directory, with a .pass file inside.
-// E.G - autoinsta/profiles/exampleaccount.pass
+// E.G - autoinsta/profiles/example/login.pass
 [
     {
         "username" : "pizzapageultimate9001",
